@@ -13,14 +13,34 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            //セキュリティの高いブロックチェーンお技術を使いたい場合は、idをbigIncrementsに変更する
+            $table->string('owner_name');
             $table->string('name');
+            //７字の郵便番号を設定。それ以外はエラー
+            $table->integer('postcode');
+            $table->string('prefecture');
+            $table->string('address');
+            $table->string('tel');
+            $table->string('password');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->rememberToken();
+            // 下記は、nullも許容する。
+            $table->string('owner_birthday')->nullable();
+            $table->string('image')->nullable();
+            $table->string('owner_image')->nullable();
+            $table->string('introduction')->nullable();
+            $table->string('url')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('line')->nullable();
+            $table->string('tiktok')->nullable();
+            $table->string('pinterest')->nullable();
             $table->timestamps();
         });
+
+        
     }
 
     /**

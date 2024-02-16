@@ -13,19 +13,11 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        {{-- Scriptsを解説してください
-        1. resources/css/app.cssとresources/js/app.jsを読み込む
-        2. このファイルの中で使えるようにする
-        何を使えるようにしているのかを説明してください
-
-        
-            
-
-            --}}
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+            @include('layouts.publicN
+            avigation')
 
             <!-- Page Heading -->
             @if (isset($header))

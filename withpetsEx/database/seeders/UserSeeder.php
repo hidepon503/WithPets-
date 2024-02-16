@@ -14,30 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => '保護団体A',
-            'email' => 'sampl1@sample.com',
-            'password' => Hash::make('password'),
-        ]);
-        User::create([
-            'name' => '保護団体B',
-            'email' => 'sample2@sample.com',
-            'password' => Hash::make('password'),
-        ]);
-        User::create([
-            'name' => '保護団体C',
-            'email' => 'sample3@sample.com',
-            'password' => Hash::make('password'),
-        ]);
-        User::create([
-            'name' => '保護団体D',
-            'email' => 'sample4@sample.com',
-            'password' => Hash::make('password'),
-        ]);
-        User::create([
-            'name' => '保護団体E',
-            'email' => 'sample5@sample.com',
-            'password' => Hash::make('password'),
-        ]);
+        // factoryを利用してUserモデルのインスタンスを作成し、データベースに保存
+        User::factory()->count(48)->create();
     }
 }

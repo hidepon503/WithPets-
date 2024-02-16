@@ -5,37 +5,41 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('publicIndex') }}">
+                        {{-- <h1 class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200">With Pets</h1> --}}
                         <img src="{{ asset('storage/logo/WithPetsLogo.png') }}" alt="" class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200">
+                        {{-- <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" /> --}}
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('publicIndex')" :active="request()->routeIs('publicIndex')">
+                        <p>HOME</p>
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('cats.index')" :active="request()->routeIs('cats')">
                         {{-- activeメソッドはどんな意味や使い方があるか解説してください。
                         activeメソッドは、引数に渡されたURLと現在のURLが一致するかどうかを判定するためのものです。一致している場合はtrueを返し、一致していない場合はfalseを返します。--}}
-                        <p>INDEX</p>
+                        <p class="text-center">保護団体一覧<br>未実装</p>
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('cats.create')" :active="request()->routeIs('cats.create')">
-                        <p>Register</p>
+                        <p class="text-center">お問い合わせ<br>未実装</p>
                     </x-nav-link>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
+                <x-dropdown aling="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>
+                                <p>設定</p>
+                            </div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -46,20 +50,34 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+                        @if (Route::has('login'))
+                            @auth
+                                <x-dropdown-link :href="url('/')">
+                                    {{ __('/') }}
+                                </x-dropdown-link>
+                                <!-- Authentication -->
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <x-dropdown-link :href="route('logout')"
+                                            onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+                            @else
+                                <x-dropdown-link :href="route('login')">
+                                    {{ __('Log in') }}
+                                </x-dropdown-link>
+                                
 
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
+                                @if (Route::has('register'))
+                                    <x-dropdown-link :href="route('register')">
+                                        {{ __('Register') }}
+                                    </x-dropdown-link>
+                                @endif
+                            @endauth
+                        @endif
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
                     </x-slot>
                 </x-dropdown>
             </div>
@@ -87,8 +105,8 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                {{-- <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div> --}}
+                {{-- <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div> --}}
             </div>
 
             <div class="mt-3 space-y-1">

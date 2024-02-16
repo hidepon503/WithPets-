@@ -1,12 +1,52 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}  ">
         @csrf
 
+        {{-- owner_name --}}
+        <div class="">
+            <x-input-label for="owner_name" :value="__('代表名')" />
+            <x-text-input id="owner_name" class="block mt-1 w-full" type="text" name="owner_name" :value="old('owner_name')" required autofocus autocomplete="owner_name" />
+            <x-input-error :messages="$errors->get('owner_name')" class="mt-2" />
+        </div>
+
         <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
+        <div class="mt-4">
+            <x-input-label for="name" :value="__('団体名')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        
+        {{-- postcode --}}
+        <div class="mt-4">
+            <p class="">団体所在地</p>
+            <x-input-label for="postcode" class="mt-1" :value="__('郵便番号')" />
+            <x-text-input id="postcode" class="block mt-1 w-full" type="text" name="postcode" :value="old('postcode')" required autofocus autocomplete="postcode" />
+            <x-input-error :messages="$errors->get('postcode')" class="mt-2" />
+            <p class="mt-1">住所</p>
+            
+            <x-input-label for="prefecture" :value="__('都道府県')" />
+            <x-text-input id="prefecture" class="block mt-1 w-full" type="text" name="prefecture" :value="old('prefecture')" required autofocus autocomplete="prefecture" />    
+            <x-input-error :messages="$errors->get('prefecture')" class="mt-2" />
+            <x-input-label for="city"  :value="__('市区町村')" class="mt-2" />
+            <x-text-input id="city" name="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" required autofocus autocomplete="city" />
+            <x-input-error :messages="$errors->get('city')" class="mt-2" />
+            <x-input-label for="street" class="mt-2" :value="__('番地')" />
+            <x-text-input id="street" class="block mt-1 w-full" type="text" name="street" :value="old('street')" required autofocus autocomplete="street" />
+            <x-input-error :messages="$errors->get('street')" class="mt-2" />
+            <x-input-label for="building" class="mt-2" :value="__('建物名・部屋番号')" />
+            <x-text-input id="building" class="block mt-1 w-full" type="text" name="building" :value="old('building')" required autofocus autocomplete="building" />
+            <x-input-error :messages="$errors->get('building')" class="mt-2" />
+            <x-input-label for="other" class="mt-2" :value="__('その他')" />
+            <x-text-input id="other" class="block mt-1 w-full" type="text" name="other" :value="old('other')" autofocus autocomplete="other" />
+            <x-input-error :messages="$errors->get('other')" class="mt-2" />
+        </div>
+
+        <!-- Tel -->
+        <div class="mt-4">
+            <x-input-label for="tel" :value="__('電話番号（団体）')" />
+            <x-text-input id="tel" class="block mt-1 w-full" type="tel" name="tel" :value="old('tel')" required autocomplete="tel" />
+            <x-input-error :messages="$errors->get('tel')" class="mt-2" />
         </div>
 
         <!-- Email Address -->

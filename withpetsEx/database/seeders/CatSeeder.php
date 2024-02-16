@@ -13,6 +13,6 @@ class CatSeeder extends Seeder
      */
     public function run(): void
     {
-        Cat::factory()->count(30)->create();
+        Cat::factory()->count(48)->create();
     }
 }

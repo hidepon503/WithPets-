@@ -14,8 +14,16 @@ class Cat extends Model
         'age',
         'kind_id',
         'user_id',
+        'gender_id',
         'desc',
+        'status_id',
     ];
+
+    public function getImageAttribute($value)
+    {
+        // 'public/'プレフィックスを取り除く
+        return str_replace('public/', '', $value);
+    }
 
     public function kind()
     {
@@ -26,4 +34,15 @@ class Cat extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
 }

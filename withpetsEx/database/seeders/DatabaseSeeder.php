@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserSeeder::class);
         $this->call(KindSeeder::class);
+        $this->call(GenderSeeder::class);
         $this->call(CatSeeder::class);
+        $this->call(StatusSeeder::class);
     }
-
-
 }
