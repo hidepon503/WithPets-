@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+// APIを作る際には上記のコードを削除し、api.phpに上記のコードを追加する必要があります。

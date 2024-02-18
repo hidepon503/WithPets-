@@ -10,13 +10,14 @@ class Cat extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'age',
+        'status_id',
         'kind_id',
-        'user_id',
         'gender_id',
         'desc',
-        'status_id',
+        'image',
     ];
 
     public function getImageAttribute($value)
