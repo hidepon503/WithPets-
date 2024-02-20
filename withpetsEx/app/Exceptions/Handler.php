@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Auth;
 
 class Handler extends ExceptionHandler
 {
@@ -26,5 +28,24 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        // if ($request->is('api/*')) {
+        //     if ($exception instanceof \Illuminate\Validation\ValidationException) {
+        //         return response()->json([
+        //             'message' => 'The given data was invalid.',
+        //             'errors' => $exception->errors()
+        //         ], 422);
+        //     }
+        // }
+        // return parent::render($request, $exception);
+        if($exception instanceof AuthenticationException){
+            return response()->json([
+                'message' => 'Unauthenticated'
+            ], 401);
+        }
+        return parent::render($request, $exception);
     }
 }

@@ -12,9 +12,9 @@
                     <form method="POST" action="{{ route('cats.store') }}" enctype="multipart/form-data" onsubmit="return confirm('本当に登録しますか？');">
                         @csrf
                         <div class="mb-4">
+                            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                             <label for="cat" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Cat Name</label>
                             {{-- hiddenでAuthIdを送信する --}}
-                            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                             <input type="text" name="name" id="cat" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                             @error('name')
                                 <span class="text-red-500 text-xs italic">{{ $message }}</span>

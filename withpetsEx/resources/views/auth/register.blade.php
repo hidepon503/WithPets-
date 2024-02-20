@@ -24,19 +24,23 @@
             <x-text-input id="postcode" class="block mt-1 w-full" type="text" name="postcode" :value="old('postcode')" required autofocus autocomplete="postcode" />
             <x-input-error :messages="$errors->get('postcode')" class="mt-2" />
             <p class="mt-1">住所</p>
-            
+            {{-- prefecture --}}
             <x-input-label for="prefecture" :value="__('都道府県')" />
             <x-text-input id="prefecture" class="block mt-1 w-full" type="text" name="prefecture" :value="old('prefecture')" required autofocus autocomplete="prefecture" />    
             <x-input-error :messages="$errors->get('prefecture')" class="mt-2" />
+            {{-- city --}}
             <x-input-label for="city"  :value="__('市区町村')" class="mt-2" />
             <x-text-input id="city" name="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" required autofocus autocomplete="city" />
             <x-input-error :messages="$errors->get('city')" class="mt-2" />
+            {{-- street --}}
             <x-input-label for="street" class="mt-2" :value="__('番地')" />
             <x-text-input id="street" class="block mt-1 w-full" type="text" name="street" :value="old('street')" required autofocus autocomplete="street" />
             <x-input-error :messages="$errors->get('street')" class="mt-2" />
+            {{-- building --}}
             <x-input-label for="building" class="mt-2" :value="__('建物名・部屋番号')" />
             <x-text-input id="building" class="block mt-1 w-full" type="text" name="building" :value="old('building')" required autofocus autocomplete="building" />
             <x-input-error :messages="$errors->get('building')" class="mt-2" />
+            {{-- other --}}
             <x-input-label for="other" class="mt-2" :value="__('その他')" />
             <x-text-input id="other" class="block mt-1 w-full" type="text" name="other" :value="old('other')" autofocus autocomplete="other" />
             <x-input-error :messages="$errors->get('other')" class="mt-2" />

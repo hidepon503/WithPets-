@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CatController;
+
 use App\Models\Cat;
 use App\Models\User;
 

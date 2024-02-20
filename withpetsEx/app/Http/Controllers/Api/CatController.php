@@ -1,14 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Cat;
 use App\Models\Kind;
 use App\Models\User;
 use App\Models\Gender;
 use App\Models\Status;
+
+// use App\Http\Requests\CatRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+
 
 class CatController extends Controller
 {
@@ -17,12 +21,13 @@ class CatController extends Controller
         $cats = Cat::where('status_id', 2 )->orderBy('created_at', 'desc')->paginate(25);
         $user = User::all();
         
-        return view('welcome', ['cats' => $cats, 'user' => $user]);
+        return response()->json($response);
+        
     }
 
     public function publicShow(Cat $cat)
     {
-        return view('public.show', ['cat' => $cat]);
+        return response()->json($cat);
     }
 
     /**
@@ -30,15 +35,27 @@ class CatController extends Controller
      */
     public function index()
     {
+        // 認証されたユーザーを取得
         $user = Auth::user();
-        //catsテーブルのuser_idカラムがログインユーザーのidと一致するデータを取得し、ページネーションを利用して登録日時の新しい順に50件ずつ表示
+        // 認証されたユーザーのIDに基づき、猫のデータをページネーションで取得
         $cats = Cat::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(50);
-    
-        // 猫の一覧ページを表示
-        // return view('cats.index', ['cats' => $cats]);
-        // compact関数を利用して変数をビューに渡す
-        return view('cats.index', compact('cats', 'user'));
+
+        // 返却するレスポンスデータを配列で構築
+        $response = [
+            'user' => $user, // ユーザー情報
+            'cats' => $cats->items(), // ページネーション結果のデータ部分
+            'pagination' => [ // ページネーション情報
+                'total' => $cats->total(), // 総アイテム数
+                'perPage' => $cats->perPage(), // 1ページあたりのアイテム数
+                'currentPage' => $cats->currentPage(), // 現在のページ番号
+                'lastPage' => $cats->lastPage(), // 最終ページ番号
+            ],
+        ];
+
+        // 構築したレスポンスデータをJSON形式で返却
+        return response()->json($response); // HTTPステータスコードはデフォルトの200を使用
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -49,8 +66,15 @@ class CatController extends Controller
         $kinds = Kind::all();
         $genders = Gender::all();
         $statuses = Status::all();
+
+        $response = [
+            'kinds' => $kinds,
+            'gender' => $genders,
+            'statuses' => $statuses
+        ];
     
-        return view('cats.create', compact('kinds', 'genders', 'statuses'));
+        // return view('cats.create', compact('kinds', 'genders', 'statuses'));
+        return response()->json($response);
     }
 
     /**
@@ -81,7 +105,12 @@ class CatController extends Controller
         }
         $cat->save();//データベースに保存
 
-        return redirect()->route('cats.index');
+        $response = [
+            'cat' => $cat
+        ];
+
+        // return redirect()->route('cats.index');
+        return response()->json($response);
     }
 
     /**
@@ -90,7 +119,8 @@ class CatController extends Controller
     public function show(Cat $cat)
     {
         //猫の詳細ページを表示
-        return view('cats.show', ['cat' => $cat]);
+        // return view('cats.show', ['cat' => $cat]);
+        return response()->json($cat);
     }
 
     /**
@@ -127,7 +157,8 @@ class CatController extends Controller
         }
         $cat->save();//データベースを更新
 
-        return redirect()->route('cats.index');
+        // return redirect()->route('cats.index');
+        return response()->json($cat);
     }
 
     /**
@@ -138,6 +169,7 @@ class CatController extends Controller
         //猫の削除処理
         $cat->delete();//データベースから削除
 
-        return redirect('cats.index');
+        // return redirect('cats.index');
+        return response()->json(['message' => 'Tweet delete successfully']);
     }
 }
